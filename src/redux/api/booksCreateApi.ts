@@ -5,7 +5,7 @@ export const booksApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/" }),
   endpoints: (build) => ({
     getBooks: build.query({
-      query: () => "items",
+      query: () => "books",
     }),
   }),
 });
