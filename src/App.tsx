@@ -1,8 +1,8 @@
 import Navbar from "./components/layout/Navbar";
 import { Routes, Route } from "react-router-dom";
-import AddBook from "./components/pages/AddBook";
-import BookPages from "./components/pages/BookPages";
-import BorrowSummaryPages from "./components/pages/BorrowSummaryPages";
+import AddBook from "./components/pages/AddBooks/AddBook";
+import BookPages from "./components/pages/BookPages/BookPages";
+import BorrowSummaryPages from "./components/pages/BorrowSummaryPages/BorrowSummaryPages";
 import Footer from "./components/layout/Footer";
 import Hero from "./components/layout/Hero";
 
