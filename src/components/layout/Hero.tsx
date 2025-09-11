@@ -1,24 +1,18 @@
 import { motion } from "framer-motion";
-// Fallback image URL in case import fails
 import heroImg from "../../assets/hero-2.jpg";
 
 function Hero() {
-  // Fallback: use imported image or external URL
   return (
     <div className="relative w-full h-[90vh]">
-      {/* Background Image */}
       <img
         src={heroImg}
         alt="Hero"
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      {/* Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
 
-      {/* Centered Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-        {/* Animated Title */}
         <motion.h1
           initial={{ opacity: 0, y: 80 }}
           animate={{ opacity: 1, y: 0 }}
@@ -28,7 +22,6 @@ function Hero() {
           Welcome to Our Library
         </motion.h1>
 
-        {/* Animated Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -39,7 +32,6 @@ function Hero() {
           effortlessly.
         </motion.p>
 
-        {/* Animated Button */}
         <motion.button
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
