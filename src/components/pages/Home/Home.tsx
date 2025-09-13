@@ -7,8 +7,7 @@ function Home() {
       <Hero />
 
       {/* Featured Books Section */}
-      <section className="mt-20 container mx-auto">
-        <h2 className="text-2xl font-bold mb-4">Featured Books</h2>
+      <section className="mt-20 mx-auto">
         <BookPages />
       </section>
     </div>
