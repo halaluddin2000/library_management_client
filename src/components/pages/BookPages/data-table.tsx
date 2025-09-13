@@ -1,5 +1,5 @@
 import {
-  ColumnDef,
+  type ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
@@ -14,7 +14,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-function dataTable() {
+interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+}
+
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) {
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
   return (
     <div className="overflow-hidden rounded-md border">
       <Table>
@@ -62,5 +76,3 @@ function dataTable() {
     </div>
   );
 }
-
-export default dataTable;

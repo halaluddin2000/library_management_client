@@ -1,12 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import App from "./App";
-import "./index.css";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+import App from "./App";
+import { store } from "./redux/store";
+import "./index.css";
+
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error("Root element not found. Check index.html file.");
+}
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>

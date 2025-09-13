@@ -1,12 +1,24 @@
 import { useGetBooksQuery } from "@/redux/api/booksCreateApi";
+import { DataTable } from "./data-table";
+import { columns } from "./columns";
 
 function BookPages() {
   const { data, isLoading } = useGetBooksQuery(undefined);
+
   if (isLoading) {
-    <p>Loading..............</p>;
+    return <p>Loading..............</p>;
   }
-  console.log(data);
-  return <div>Books Page</div>;
+
+  console.log("API Response:", data);
+
+  return (
+    <div>
+      <p>Books Page</p>
+      <div>
+        <DataTable columns={columns} data={data?.data || []} />
+      </div>
+    </div>
+  );
 }
 
 export default BookPages;

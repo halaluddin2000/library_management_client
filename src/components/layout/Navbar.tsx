@@ -1,19 +1,55 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav className="bg-gray-800 p-4 text-white">
-      <div className="container mx-auto flex justify-between">
-        <h1 className="text-xl font-bold">Library System</h1>
+    <nav className="bg-gray-800 p-4 text-white shadow-md">
+      <div className="container mx-auto flex justify-between items-center">
+        {/* Logo / Brand Name */}
+        <Link to="/" className="text-xl font-bold">
+          Library System
+        </Link>
+
+        {/* Navigation Links */}
         <ul className="flex gap-6">
           <li>
-            <Link to="/books">All Books</Link>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "font-semibold text-blue-400" : "hover:text-gray-300"
+              }
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <Link to="/create-book">Add Book</Link>
+            <NavLink
+              to="/books"
+              className={({ isActive }) =>
+                isActive ? "font-semibold text-blue-400" : "hover:text-gray-300"
+              }
+            >
+              All Books
+            </NavLink>
           </li>
           <li>
-            <Link to="/borrow-summary">Borrow Summary</Link>
+            <NavLink
+              to="/create-book"
+              className={({ isActive }) =>
+                isActive ? "font-semibold text-blue-400" : "hover:text-gray-300"
+              }
+            >
+              Add Book
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/borrow-summary"
+              className={({ isActive }) =>
+                isActive ? "font-semibold text-blue-400" : "hover:text-gray-300"
+              }
+            >
+              Borrow Summary
+            </NavLink>
           </li>
         </ul>
       </div>
