@@ -15,6 +15,7 @@ export const booksApi = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["book"],
     }),
   }),
 });

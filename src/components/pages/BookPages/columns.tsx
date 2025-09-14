@@ -1,5 +1,7 @@
+import { Button } from "@/components/ui/button";
 import { type ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
+import { PenIcon, Delete } from "lucide-react";
 
 export type Book = {
   _id: string;
@@ -78,5 +80,29 @@ export const columns: ColumnDef<Book>[] = [
       ) : (
         "N/A"
       ),
+  },
+  {
+    id: "edit",
+    header: "Edit",
+    cell: ({ row }) => {
+      const book = row.original;
+      return (
+        <Button size="icon" variant="ghost">
+          <PenIcon className="w-4 h-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    id: "delete",
+    header: "Delete",
+    cell: ({ row }) => {
+      const book = row.original;
+      return (
+        <Button size="icon" variant="ghost">
+          <Delete className="w-4 h-4 to-red-950" />
+        </Button>
+      );
+    },
   },
 ];

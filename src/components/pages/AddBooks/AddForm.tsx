@@ -72,7 +72,6 @@ export default function AddBookForm() {
   return (
     <div className="max-w-md mx-auto p-6 border rounded-lg shadow-md">
       <h2 className="text-xl font-semibold mb-4">Add a New Book</h2>
-
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {/* Title */}
