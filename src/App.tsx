@@ -5,10 +5,13 @@ import BookPages from "./components/pages/BookPages/BookPages";
 import AddBook from "./components/pages/AddBooks/AddBook";
 import BorrowSummaryPages from "./components/pages/BorrowSummaryPages/BorrowSummaryPages";
 import Footer from "./components/layout/Footer";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <div className="flex min-h-screen flex-col">
+      <ToastContainer position="top-right" autoClose={3000} />
+
       <Navbar />
 
       <main className="">

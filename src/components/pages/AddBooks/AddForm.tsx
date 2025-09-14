@@ -12,9 +12,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { bookSchema, genreOptions, type BookFormData } from "@/lib/BookSchema";
+import { useAddBookMutation } from "@/redux/api/booksCreateApi";
+import { toast } from "react-toastify";
 // import { BookFormData, bookSchema, genreOptions } from "@/lib/BookSchema";
 
 export default function AddBookForm() {
+  const [addBook, { isLoading }] = useAddBookMutation();
+
   const form = useForm<BookFormData>({
     resolver: zodResolver(bookSchema),
     defaultValues: {
@@ -23,19 +27,47 @@ export default function AddBookForm() {
       genre: genreOptions[0],
       isbn: "",
       description: "",
-      copies: 1,
+      copies: 0,
       available: true,
     },
   });
 
-  const onSubmit = (values: BookFormData) => {
-    const finalData = {
-      ...values,
-      available: values.copies > 0,
-    };
-    console.log("Book submitted:", finalData);
-    // TODO: Call API or Redux action here
-  };
+  async function onSubmit(values: BookFormData) {
+    try {
+      console.log("Submitting values:", values); // <-- Check this
+
+      const res = await addBook(values);
+      console.log("Server response:", res);
+      // Success toast
+      toast.success("Book added successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      // Reset the form
+      form.reset({
+        title: "",
+        author: "",
+        genre: genreOptions[0],
+        isbn: "",
+        description: "",
+        copies: 0,
+        available: true,
+      });
+
+      console.log("Server response:", res);
+    } catch (error) {
+      console.error("Error adding book:", error);
+
+      // Error toast
+      toast.error(
+        error?.data?.message || "Failed to add book. Please try again.",
+        {
+          position: "top-right",
+          autoClose: 4000,
+        }
+      );
+    }
+  }
 
   return (
     <div className="max-w-md mx-auto p-6 border rounded-lg shadow-md">
@@ -148,9 +180,15 @@ export default function AddBookForm() {
           />
 
           {/* Submit */}
-          <Button type="submit" className="w-full">
-            Add Book
-          </Button>
+          <div className="flex">
+            <Button
+              className="bg-green-400 p-2 rounded-lg text-xl"
+              type="submit"
+              disabled={isLoading}
+            >
+              Add Book
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
