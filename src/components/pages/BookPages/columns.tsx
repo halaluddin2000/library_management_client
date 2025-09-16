@@ -1,7 +1,8 @@
+// src/pages/Books/columns.tsx
 import { Button } from "@/components/ui/button";
 import { type ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
-import { PenIcon, Delete } from "lucide-react";
+import { PenIcon, Trash2 } from "lucide-react";
 
 export type Book = {
   _id: string;
@@ -16,7 +17,10 @@ export type Book = {
   updatedAt?: string;
 };
 
-export const columns: ColumnDef<Book>[] = [
+export const createColumns = (
+  onEdit: (book: Book) => void,
+  onDelete: (book: Book) => void
+): ColumnDef<Book>[] => [
   {
     accessorKey: "title",
     header: "Title",
@@ -56,11 +60,10 @@ export const columns: ColumnDef<Book>[] = [
             : "bg-red-200 text-red-800"
         }`}
       >
-        {row.original.copies > 0 ? `${row.original.copies}` : "out of stock"}
+        {row.original.copies > 0 ? `${row.original.copies}` : "Out of stock"}
       </span>
     ),
   },
-
   {
     accessorKey: "createdAt",
     header: "Created At",
@@ -87,8 +90,8 @@ export const columns: ColumnDef<Book>[] = [
     cell: ({ row }) => {
       const book = row.original;
       return (
-        <Button size="icon" variant="ghost">
-          <PenIcon className="w-4 h-4" />
+        <Button size="icon" variant="ghost" onClick={() => onEdit(book)}>
+          <PenIcon color="#04AA6D" className="w-4 h-4" />
         </Button>
       );
     },
@@ -99,8 +102,8 @@ export const columns: ColumnDef<Book>[] = [
     cell: ({ row }) => {
       const book = row.original;
       return (
-        <Button size="icon" variant="ghost">
-          <Delete className="w-4 h-4 to-red-950" />
+        <Button size="icon" variant="ghost" onClick={() => onDelete(book)}>
+          <Trash2 color="#eb0a4d" />
         </Button>
       );
     },
