@@ -1,58 +1,97 @@
 import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  // Navigation links
+  const links = [
+    { to: "/", label: "Home" },
+    { to: "/books", label: "All Books" },
+    { to: "/create-book", label: "Add Book" },
+    { to: "/borrow-summary", label: "Borrow Summary" },
+  ];
+
+  // Animation variants
+  const menuVariants = {
+    hidden: { opacity: 0, y: -15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.3, ease: "easeInOut" },
+    },
+    exit: {
+      opacity: 0,
+      y: -15,
+      transition: { duration: 0.2, ease: "easeInOut" },
+    },
+  };
+
   return (
-    <nav className="bg-gray-800 p-4 text-white shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
-        {/* Logo / Brand Name */}
-        <Link to="/" className="text-xl font-bold">
+    <nav className="bg-gray-800 text-white shadow-md p-3 relative">
+      <div className="container mx-auto flex justify-between items-center ">
+        <Link to="/" className="text-xl font-bold tracking-wide">
           Library System
         </Link>
 
-        {/* Navigation Links */}
-        <ul className="flex gap-6">
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "font-semibold text-blue-400" : "hover:text-gray-300"
-              }
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/books"
-              className={({ isActive }) =>
-                isActive ? "font-semibold text-blue-400" : "hover:text-gray-300"
-              }
-            >
-              All Books
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/create-book"
-              className={({ isActive }) =>
-                isActive ? "font-semibold text-blue-400" : "hover:text-gray-300"
-              }
-            >
-              Add Book
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/borrow-summary"
-              className={({ isActive }) =>
-                isActive ? "font-semibold text-blue-400" : "hover:text-gray-300"
-              }
-            >
-              Borrow Summary
-            </NavLink>
-          </li>
+        {/* Desktop Navigation */}
+        <ul className="hidden md:flex gap-6">
+          {links.map((link) => (
+            <li key={link.to}>
+              <NavLink
+                to={link.to}
+                className={({ isActive }) =>
+                  isActive
+                    ? "font-semibold text-blue-400"
+                    : "hover:text-gray-300"
+                }
+              >
+                {link.label}
+              </NavLink>
+            </li>
+          ))}
         </ul>
+
+        {/* Mobile Hamburger Button */}
+        <button
+          className="lg:hidden md:hidden focus:outline-none"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
+
+      {/* Mobile Menu - Animated */}
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            key="mobile-menu"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={menuVariants}
+            className="md:hidden absolute top-[50px] left-0 w-full bg-gray-900 text-white flex flex-col gap-4 p-6 shadow-lg z-50"
+          >
+            {links.map((link) => (
+              <li key={link.to}>
+                <NavLink
+                  to={link.to}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "font-semibold text-blue-400"
+                      : "hover:text-gray-300"
+                  }
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </NavLink>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

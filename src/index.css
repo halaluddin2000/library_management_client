@@ -1,11 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-.container {
+/* .container {
   width: 1200px;
   margin: 0;
   padding: 0 10px;
-}
+} */
 
 @custom-variant dark (&:is(.dark *));
 

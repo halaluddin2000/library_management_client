@@ -11,7 +11,7 @@ export const booksApi = createApi({
     }),
     addBook: builder.mutation({
       query: (newBook) => ({
-        url: "/books",
+        url: "/books/create-book",
         method: "POST",
         body: newBook,
       }),

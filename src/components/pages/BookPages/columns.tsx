@@ -1,4 +1,3 @@
-// src/pages/Books/columns.tsx
 import { Button } from "@/components/ui/button";
 import { type ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
@@ -19,7 +18,8 @@ export type Book = {
 
 export const createColumns = (
   onEdit: (book: Book) => void,
-  onDelete: (book: Book) => void
+  onDelete: (book: Book) => void,
+  onBorrow: (books: Book) => void
 ): ColumnDef<Book>[] => [
   {
     accessorKey: "title",
@@ -83,6 +83,23 @@ export const createColumns = (
       ) : (
         "N/A"
       ),
+  },
+  {
+    id: "borrows",
+    header: "Borrows",
+    cell: ({ row }) => {
+      const book = row.original;
+      return (
+        <Button
+          className="mx-2 cursor-pointer"
+          variant="destructive"
+          disabled={book.copies === 0}
+          onClick={() => onBorrow(book)}
+        >
+          Borrow
+        </Button>
+      );
+    },
   },
   {
     id: "edit",
