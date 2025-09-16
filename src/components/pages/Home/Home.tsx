@@ -1,4 +1,5 @@
 import Hero from "../../layout/Hero";
+import Blog from "../Blog/Blog ";
 import BookPages from "../BookPages/BookPages";
 
 function Home() {
@@ -7,9 +8,10 @@ function Home() {
       <Hero />
 
       {/* Featured Books Section */}
-      <section className="mt-20 mx-auto">
+      <section className="mt-20 mx-auto mb-8">
         <BookPages />
       </section>
+      <Blog />
     </div>
   );
 }
