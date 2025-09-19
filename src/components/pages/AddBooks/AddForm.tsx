@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { bookSchema, genreOptions, type BookFormData } from "@/lib/BookSchema";
 import { useAddBookMutation } from "@/redux/api/booksCreateApi";
 import { toast } from "react-toastify";
-// import { BookFormData, bookSchema, genreOptions } from "@/lib/BookSchema";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 export default function AddBookForm() {
   const [addBook, { isLoading }] = useAddBookMutation();
@@ -31,6 +31,14 @@ export default function AddBookForm() {
       available: true,
     },
   });
+
+  const handleError = (error: unknown): string => {
+    const apiError = error as FetchBaseQueryError & {
+      data?: { message?: string };
+    };
+
+    return apiError?.data?.message || "Failed to add book. Please try again.";
+  };
 
   async function onSubmit(values: BookFormData) {
     try {
@@ -59,13 +67,10 @@ export default function AddBookForm() {
       console.error("Error adding book:", error);
 
       // Error toast
-      toast.error(
-        error?.data?.message || "Failed to add book. Please try again.",
-        {
-          position: "top-right",
-          autoClose: 4000,
-        }
-      );
+      toast.error(handleError(error), {
+        position: "top-right",
+        autoClose: 4000,
+      });
     }
   }
 

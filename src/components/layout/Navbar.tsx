@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 function Navbar() {
   const [open, setOpen] = useState(false);
 
-  // Navigation links
   const links = [
     { to: "/", label: "Home" },
     { to: "/books", label: "All Books" },
@@ -14,18 +13,20 @@ function Navbar() {
     { to: "/borrow-summary", label: "Borrow Summary" },
   ];
 
-  // Animation variants
   const menuVariants = {
     hidden: { opacity: 0, y: -15 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.3, ease: "easeInOut" },
+      transition: {
+        duration: 0.3,
+        ease: [0.42, 0, 0.58, 1],
+      },
     },
     exit: {
       opacity: 0,
       y: -15,
-      transition: { duration: 0.2, ease: "easeInOut" },
+      transition: { duration: 0.2, ease: [0.42, 0, 0.58, 1] },
     },
   };
 
@@ -63,15 +64,14 @@ function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu - Animated */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {open && (
           <motion.ul
-            key="mobile-menu"
+            variants={menuVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
-            variants={menuVariants}
             className="md:hidden absolute top-[50px] left-0 w-full bg-gray-900 text-white flex flex-col gap-4 p-6 shadow-lg z-50"
           >
             {links.map((link) => (
