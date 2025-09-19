@@ -13,6 +13,7 @@ import img from "../../../assets/all img.jpg";
 import { useLocation } from "react-router-dom";
 import { EditBookDialog } from "../UpdateBook/EditBookDialog";
 import { BorrowDialog } from "../Borrows/BorrowFormOpen/BorrowDialog";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 export default function BookPages() {
   const { data, isLoading } = useGetBooksQuery(undefined);
@@ -55,9 +56,13 @@ export default function BookPages() {
           isLoading: false,
           autoClose: 2000,
         });
-      } catch (error) {
+      } catch (err) {
+        const error = err as FetchBaseQueryError & {
+          data?: { message?: string };
+        };
+
         toast.update(toastId, {
-          render: "Failed to delete book!",
+          render: error?.data?.message || "Failed to delete book!",
           type: "error",
           isLoading: false,
           autoClose: 3000,
@@ -92,7 +97,7 @@ export default function BookPages() {
 
         {/* Cards for mobile */}
         <div className="grid gap-4 md:hidden">
-          {data?.data?.map((book) => (
+          {data?.data?.map((book: Book) => (
             <div
               key={book._id}
               className="border rounded-lg p-4 shadow-md bg-white"

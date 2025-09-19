@@ -15,8 +15,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useUpdateBookMutation } from "@/redux/api/booksCreateApi";
 import { bookSchema, type BookFormData, genreOptions } from "@/lib/BookSchema";
+import type { Book } from "../BookPages/columns";
 
-export function EditBookDialog({ open, setOpen, book }) {
+type EditBookDialogProps = {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  book: Book;
+};
+
+export function EditBookDialog({ open, setOpen, book }: EditBookDialogProps) {
   const [updateBook, { isLoading }] = useUpdateBookMutation();
 
   const form = useForm<BookFormData>({
@@ -24,7 +31,7 @@ export function EditBookDialog({ open, setOpen, book }) {
     defaultValues: {
       title: book?.title || "",
       author: book?.author || "",
-      genre: book?.genre || genreOptions[0],
+      genre: (book?.genre as BookFormData["genre"]) || genreOptions[0],
       isbn: book?.isbn || "",
       description: book?.description || "",
       copies: book?.copies || 0,

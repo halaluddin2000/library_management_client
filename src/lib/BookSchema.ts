@@ -2,10 +2,12 @@ import { z } from "zod";
 
 // All genres allowed
 export const genreOptions = [
-  "Fiction",
-  "Non-Fiction",
-  "Sci-Fi",
-  "Fantasy",
+  "FICTION",
+  "NON_FICTION",
+  "SCIENCE",
+  "HISTORY",
+  "BIOGRAPHY",
+  "FANTASY",
 ] as const;
 
 export const bookSchema = z.object({

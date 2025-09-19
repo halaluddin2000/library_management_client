@@ -1,7 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, cubicBezier } from "framer-motion";
+
+const customEase = cubicBezier(0.42, 0, 0.58, 1);
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -14,19 +16,22 @@ function Navbar() {
   ];
 
   const menuVariants = {
-    hidden: { opacity: 0, y: -15 },
+    hidden: { opacity: 0, y: -20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.3,
-        ease: [0.42, 0, 0.58, 1],
+        ease: customEase,
       },
     },
     exit: {
       opacity: 0,
-      y: -15,
-      transition: { duration: 0.2, ease: [0.42, 0, 0.58, 1] },
+      y: -20,
+      transition: {
+        duration: 0.3,
+        ease: customEase,
+      },
     },
   };
 
@@ -75,7 +80,7 @@ function Navbar() {
             className="md:hidden absolute top-[50px] left-0 w-full bg-gray-900 text-white flex flex-col gap-4 p-6 shadow-lg z-50"
           >
             {links.map((link) => (
-              <li key={link.to}>
+              <ol key={link.to}>
                 <NavLink
                   to={link.to}
                   className={({ isActive }) =>
@@ -87,7 +92,7 @@ function Navbar() {
                 >
                   {link.label}
                 </NavLink>
-              </li>
+              </ol>
             ))}
           </motion.ul>
         )}
