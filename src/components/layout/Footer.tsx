@@ -13,7 +13,9 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-6 md:gap-0">
           {/* About / Branding */}
           <div className="text-center md:text-left">
-            <h2 className="text-2xl font-bold text-white mb-2">Library App</h2>
+            <h2 className="text-2xl font-bold text-white mb-2">
+              Library System
+            </h2>
             <p className="text-gray-400 max-w-xs">
               Manage your library efficiently with our easy-to-use platform.
             </p>
@@ -63,7 +65,7 @@ export default function Footer() {
 
         {/* Bottom section */}
         <div className="border-t border-gray-800 mt-8 pt-4 text-center text-gray-500 text-sm">
-          &copy; {new Date().getFullYear()} Library App. All rights reserved.
+          &copy; {new Date().getFullYear()} Library System. All rights reserved.
         </div>
       </div>
     </footer>
